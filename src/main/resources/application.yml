@@ -1,0 +1,26 @@
+pharmacy:
+  eureka:
+    instance:
+      useEcsMetadataHostIp: false
+spring:
+  config:
+    name: pharmacy-config
+  application:
+    name: pharmacy-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:hoquangnam45/pharmacy-config-secrets.git
+          clone-on-start: true
+server:
+  port: 8888
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
